@@ -71,6 +71,7 @@ $RECYCLE.BIN/
 *.log
 *.dmp
 node_modules/
+Visual Studio 2022Templates
 
 # ---- Qt Specific ----
 # Qt generated files
