@@ -14,16 +14,20 @@ public:
 	QRectF boundingRect() const override;
 	void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget) override;
 
+	void set_hovered(bool hovered);
+
+private:
+	SocketType type;
+	bool is_hovered;
+
+	void apply_settings();
+
 protected:
 	void mousePressEvent(QGraphicsSceneMouseEvent* event) override;
 	void mouseReleaseEvent(QGraphicsSceneMouseEvent* event) override;
 	void dragMoveEvent(QGraphicsSceneDragDropEvent* event) override;
 	void hoverEnterEvent(QGraphicsSceneHoverEvent* event) override;
 	void hoverLeaveEvent(QGraphicsSceneHoverEvent* event) override;
-
-public:
-	SocketType type;
-	bool is_hovered;
 
 signals:
 	void signal_socket_clicked(SocketGraphics* socket);

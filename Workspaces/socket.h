@@ -16,13 +16,15 @@ public:
 	Socket(SocketType type, QGraphicsItem* parent = nullptr);
 	~Socket();
 
-	QString get_type();
+	QString get_type() const;
 
 private:
+	QGraphicsItem* parent;
 	SocketType type;
 	SocketGraphics* socket_graphics;
 
-	void signals_slots();
+	void connect_signals_slots();
+	void set_position();
 
 public slots:
 	void slot_socket_clicked(SocketGraphics* socket);
