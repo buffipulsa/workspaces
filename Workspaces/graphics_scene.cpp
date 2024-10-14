@@ -22,14 +22,14 @@ const int GraphicsScene::size = 16000;
 
 GraphicsScene::GraphicsScene(QObject* parent) : QGraphicsScene(parent)
 {
-	this->setSceneRect(-size, -size, size, size);
+	setSceneRect(-size, -size, size, size);
 }
 
 GraphicsScene::~GraphicsScene() {}
 
 QPointF GraphicsScene::get_viewport_center()
 {
-	QGraphicsView* view = this->views().first();
+	QGraphicsView* view = views().first();
 	QRectF view_rect = view->mapToScene(view->viewport()->rect()).boundingRect();
 	QPointF center = view_rect.center();
 	qDebug() << "Center: " << center;

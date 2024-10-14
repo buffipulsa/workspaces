@@ -19,18 +19,8 @@ GraphicsView::GraphicsView(QWidget* parent)
 	zoom_factor(1.2), min_zoom(0.1), max_zoom(5.0),
 	graphics_scene(new GraphicsScene(this))
 {
-	this->setScene(graphics_scene);
-
-	this->setDragMode(QGraphicsView::NoDrag);
-	this->setCursor(Qt::ArrowCursor);
-	this->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-	this->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-	this->setRenderHint(QPainter::Antialiasing);
-	this->setRenderHint(QPainter::TextAntialiasing);
-	this->setRenderHint(QPainter::SmoothPixmapTransform);
-	this->setCacheMode(QGraphicsView::CacheBackground);
-	this->setTransformationAnchor(QGraphicsView::AnchorUnderMouse);
-	this->setViewportUpdateMode(QGraphicsView::FullViewportUpdate);
+	apply_settings();
+	setScene(graphics_scene);
 }
 
 GraphicsView::~GraphicsView() {}
@@ -43,7 +33,10 @@ void GraphicsView::paintEvent(QPaintEvent* event)
 
 void GraphicsView::mousePressEvent(QMouseEvent* event)
 {
-	if (event->button() == Qt::MiddleButton) {
+	if (event->button() == Qt::RightButton) {
+		qDebug() << "Right button pressed.";
+	}
+	else if (event->button() == Qt::MiddleButton) {
 		is_panning = true;
 		pan_start = event->pos();
 		setCursor(Qt::ClosedHandCursor);
@@ -54,7 +47,7 @@ void GraphicsView::mousePressEvent(QMouseEvent* event)
 		is_dragging = true;
 		drag_start_pos = mapToScene(event->pos());
 		selection_rect = QRectF(drag_start_pos, drag_start_pos);
-		this->update();
+		update();
 	}
 	else {
 		QGraphicsView::mousePressEvent(event);
@@ -74,7 +67,7 @@ void GraphicsView::mouseMoveEvent(QMouseEvent* event)
 	else if (is_dragging) {
 		QPointF current_pos = mapToScene(event->pos());
 		selection_rect = QRectF(drag_start_pos, current_pos).normalized();
-		this->update();
+		update();
 	}
 	else {
 		QGraphicsView::mouseMoveEvent(event);
@@ -92,7 +85,7 @@ void GraphicsView::mouseReleaseEvent(QMouseEvent* event)
 	}
 	else if (event->button() == Qt::LeftButton && event->modifiers() & Qt::ShiftModifier && is_dragging) {
 		is_dragging = false;
-		this->graphics_scene->clearSelection();
+		graphics_scene->clearSelection();
 
 		QList<QGraphicsItem*> items = this->graphics_scene->items(selection_rect);
 
@@ -101,7 +94,7 @@ void GraphicsView::mouseReleaseEvent(QMouseEvent* event)
 		}
 
 		selection_rect = QRectF(0, 0, 0, 0);
-		this->update();
+		update();
 	}
 	else {
 		QGraphicsView::mouseReleaseEvent(event);
@@ -112,7 +105,7 @@ void GraphicsView::mouseReleaseEvent(QMouseEvent* event)
 
 void GraphicsView::wheelEvent(QWheelEvent* event)
 {
-	qreal zoom = this->transform().m11();
+	qreal zoom = transform().m11();
 
 	QPointF old_scene_pos = mapToScene(event->position().toPoint());
 
@@ -134,7 +127,7 @@ void GraphicsView::wheelEvent(QWheelEvent* event)
 	QPointF new_scene_pos = mapToScene(event->position().toPoint());
 
 	QPointF delta = old_scene_pos - new_scene_pos;
-	this->translate(delta.x(), delta.y());
+	translate(delta.x(), delta.y());
 
 	event->accept();
 
@@ -145,7 +138,7 @@ void GraphicsView::keyPressEvent(QKeyEvent* event)
 {
 	if (event->key() == Qt::Key_F)
 	{
-		QList<QGraphicsItem*> selected_items = this->scene()->selectedItems();
+		QList<QGraphicsItem*> selected_items = scene()->selectedItems();
 
 		if (!selected_items.isEmpty())
 		{
@@ -154,7 +147,7 @@ void GraphicsView::keyPressEvent(QKeyEvent* event)
 				QRectF item_rect = item->mapRectToScene(item->boundingRect());
 				combined_rect = combined_rect.united(item_rect);
 			}
-			this->fitInView(combined_rect, Qt::KeepAspectRatio);
+			fitInView(combined_rect, Qt::KeepAspectRatio);
 		}
 		else {
 			QRectF combined_rect;
@@ -162,13 +155,27 @@ void GraphicsView::keyPressEvent(QKeyEvent* event)
 				QRectF item_rect = item->mapRectToScene(item->boundingRect());
 				combined_rect = combined_rect.united(item_rect);
 			}
-			this->fitInView(combined_rect, Qt::KeepAspectRatio);
+			fitInView(combined_rect, Qt::KeepAspectRatio);
 		}
 	}
 	
 	QGraphicsView::keyPressEvent(event);
 
 	return;
+}
+
+void GraphicsView::apply_settings()
+{
+	setDragMode(QGraphicsView::NoDrag);
+	setCursor(Qt::ArrowCursor);
+	setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+	setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+	setRenderHint(QPainter::Antialiasing);
+	setRenderHint(QPainter::TextAntialiasing);
+	setRenderHint(QPainter::SmoothPixmapTransform);
+	setCacheMode(QGraphicsView::CacheBackground);
+	setTransformationAnchor(QGraphicsView::AnchorUnderMouse);
+	setViewportUpdateMode(QGraphicsView::FullViewportUpdate);
 }
 
 void GraphicsView::draw_selection_rect()
@@ -185,4 +192,8 @@ void GraphicsView::draw_selection_rect()
 	}
 
 	return;
+}
+
+void GraphicsView::initialize_node_search_widget()
+{
 }

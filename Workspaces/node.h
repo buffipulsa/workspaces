@@ -1,7 +1,5 @@
 #pragma once
 
-#include "socket.h"
-
 #include <QGraphicsItem>
 #include <QObject>
 #include <QPainter>

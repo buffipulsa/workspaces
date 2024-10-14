@@ -30,7 +30,9 @@ protected:
 	void keyPressEvent(QKeyEvent* event) override;
 
 private:
+	void apply_settings();
 	void draw_selection_rect();
+	void initialize_node_search_widget();
 
 	bool is_panning;
 	bool is_dragging;
