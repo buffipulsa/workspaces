@@ -1,7 +1,0 @@
-<RCC>
-  <qresource prefix="NodeEditor">
-    <file>icons/launcher_ui.png</file>
-    <file>icons/mayaico.png</file>
-    <file>icons/ue_logo.png</file>
-  </qresource>
-</RCC>
