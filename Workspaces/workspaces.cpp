@@ -22,17 +22,20 @@ Workspaces::Workspaces(QWidget *parent) : QMainWindow(parent), settings_dialog(n
 	set_projects_combobox();
 	load_settings();
 
-	this->setWindowTitle("Workspaces");
+	setWindowTitle("Workspaces");
 }
 
-Workspaces::~Workspaces() {}
+Workspaces::~Workspaces()
+{
+	save_settings();
+}
 
 void Workspaces::save_settings()
 {
 	QSettings settings("ws", "workspaces");
 
 	settings.beginGroup("main_window_group");
-	bool is_maximized = (this->windowState() & Qt::WindowMaximized) == Qt::WindowMaximized;
+	bool is_maximized = (windowState() & Qt::WindowMaximized) == Qt::WindowMaximized;
 	settings.setValue("is_maximized", is_maximized);
 	if (is_maximized) {
 		QScreen* screen = this->screen();
@@ -40,8 +43,8 @@ void Workspaces::save_settings()
 		settings.setValue("maximized_screen_geometry", screen_geometry);
 	}
 	if (!is_maximized){
-		settings.setValue("window_size", this->size());
-		settings.setValue("window_position", this->geometry());
+		settings.setValue("window_size", size());
+		settings.setValue("window_position", geometry());
 	}
 	settings.endGroup();
 
@@ -65,7 +68,7 @@ void Workspaces::load_settings()
 	if (is_maximized) {
 		QRect saved_geometry = settings.value("maximized_screen_geometry").toRect();
 		if (!saved_geometry.isNull()) {
-			this->move(saved_geometry.topLeft());
+			move(saved_geometry.topLeft());
 		}
 		this->showMaximized();
 	}
@@ -74,8 +77,8 @@ void Workspaces::load_settings()
 		QRect window_position = settings.value("window_position", QRect(100, 100, 1000, 800)).toRect();
 		settings.endGroup();
 
-		this->resize(window_size);
-		this->move(window_position.topLeft());
+		resize(window_size);
+		move(window_position.topLeft());
 	}
 	//project_info settings
 	settings.beginGroup("project_info");

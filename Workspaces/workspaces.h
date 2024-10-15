@@ -1,14 +1,17 @@
 #pragma once
 
-#include "ui_emm_pipe.h"
+#include "ui_workspaces.h"
 #include "settings_dialog.h"
 
 #include <QMainWindow>
 #include <QScopedPointer>
 #include <QStringList>
+#include <QString>
+#include <QCloseEvent>
+#include <QMouseEvent>
 
 /**
- * @brief The EmmPipe class represents the main window of the EmmPipe application.
+ * @brief The Workspaces class represents the main window of the W application.
  * It inherits from QMainWindow and provides functionality for managing projects and settings.
  */
 class Workspaces : public QMainWindow
@@ -17,18 +20,18 @@ class Workspaces : public QMainWindow
 
 public:
     /**
-     * @brief Constructs an EmmPipe object.
+     * @brief Constructs an Workspaces object.
      * @param parent The parent widget.
      */
     Workspaces(QWidget *parent = nullptr);
 
     /**
-     * @brief Destroys the EmmPipe object.
+     * @brief Destroys the Workspaces object.
      */
     ~Workspaces();
 
 private:
-    Ui::EmmPipeWindow ui; /**< The user interface for the main window. */
+    Ui::WorkspacesWindow ui; /**< The user interface for the main window. */
 
     QScopedPointer<SettingsDialog> settings_dialog; /**< The settings dialog. */
 

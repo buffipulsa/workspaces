@@ -1,6 +1,7 @@
 #pragma once
 
 #include "graphics_scene.h"
+#include "node_search_dialog.h"
 
 #include <QGraphicsView>
 #include <QMouseEvent>
@@ -28,11 +29,11 @@ protected:
 	void mouseReleaseEvent(QMouseEvent* event) override;
 	void wheelEvent(QWheelEvent* event) override;
 	void keyPressEvent(QKeyEvent* event) override;
+	void contextMenuEvent(QContextMenuEvent* event) override;
 
 private:
 	void apply_settings();
 	void draw_selection_rect();
-	void initialize_node_search_widget();
 
 	bool is_panning;
 	bool is_dragging;
@@ -42,5 +43,7 @@ private:
 	double zoom_factor;
 	double min_zoom;
 	double max_zoom;
+
+	NodeSearchDialog* node_search_dialog;
 };
 

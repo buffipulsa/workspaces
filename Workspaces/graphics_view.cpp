@@ -1,5 +1,6 @@
 #include "graphics_view.h"
 #include "graphics_scene.h"
+#include "node_search_dialog.h"
 
 #include <QPainter>
 #include <QMouseEvent>
@@ -17,7 +18,7 @@ GraphicsView::GraphicsView(QWidget* parent)
 	: QGraphicsView(parent), is_panning(false), is_dragging(false), pan_start(QPoint(0, 0)), 
 	drag_start_pos(QPointF(0, 0)), selection_rect(QRectF(0, 0, 0, 0)), 
 	zoom_factor(1.2), min_zoom(0.1), max_zoom(5.0),
-	graphics_scene(new GraphicsScene(this))
+	graphics_scene(new GraphicsScene(this)), node_search_dialog(nullptr)
 {
 	apply_settings();
 	setScene(graphics_scene);
@@ -34,7 +35,9 @@ void GraphicsView::paintEvent(QPaintEvent* event)
 void GraphicsView::mousePressEvent(QMouseEvent* event)
 {
 	if (event->button() == Qt::RightButton) {
-		qDebug() << "Right button pressed.";
+		/*NodeSearchDialog* node_search_dialog = new NodeSearchDialog(this);
+		node_search_dialog->set_position(event->pos());
+		node_search_dialog->show();*/
 	}
 	else if (event->button() == Qt::MiddleButton) {
 		is_panning = true;
@@ -43,7 +46,6 @@ void GraphicsView::mousePressEvent(QMouseEvent* event)
 		event->accept();
 	}
 	else if (event->button() == Qt::LeftButton && event->modifiers() & Qt::ShiftModifier) {
-		qDebug() << "Shift + Left button pressed.";
 		is_dragging = true;
 		drag_start_pos = mapToScene(event->pos());
 		selection_rect = QRectF(drag_start_pos, drag_start_pos);
@@ -78,7 +80,10 @@ void GraphicsView::mouseMoveEvent(QMouseEvent* event)
 
 void GraphicsView::mouseReleaseEvent(QMouseEvent* event)
 {
-	if (event->button() == Qt::MiddleButton && is_panning) {
+	if (event->button() == Qt::RightButton) {
+		
+	}
+	else if (event->button() == Qt::MiddleButton && is_panning) {
 		is_panning = false;
 		setCursor(Qt::ArrowCursor);
 		event->accept();
@@ -164,6 +169,18 @@ void GraphicsView::keyPressEvent(QKeyEvent* event)
 	return;
 }
 
+void GraphicsView::contextMenuEvent(QContextMenuEvent* event)
+{
+	if (node_search_dialog == nullptr || !node_search_dialog->isVisible())
+	{
+		node_search_dialog = new NodeSearchDialog(this);
+		node_search_dialog->set_position(event->pos());
+		node_search_dialog->show();
+
+		connect(node_search_dialog, &QObject::destroyed, this, [this]() { node_search_dialog = nullptr; });
+	}
+}
+
 void GraphicsView::apply_settings()
 {
 	setDragMode(QGraphicsView::NoDrag);
@@ -194,6 +211,3 @@ void GraphicsView::draw_selection_rect()
 	return;
 }
 
-void GraphicsView::initialize_node_search_widget()
-{
-}

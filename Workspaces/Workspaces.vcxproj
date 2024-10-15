@@ -38,12 +38,12 @@
   </ImportGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="QtSettings">
     <QtInstall>6.7.2_msvc2019_64</QtInstall>
-    <QtModules>core;gui;network;widgets;network;widgets</QtModules>
+    <QtModules>core;gui;network;widgets</QtModules>
     <QtBuildConfig>debug</QtBuildConfig>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'" Label="QtSettings">
     <QtInstall>6.7.2_msvc2019_64</QtInstall>
-    <QtModules>core;gui;network;widgets;widgets</QtModules>
+    <QtModules>core;gui;network;widgets</QtModules>
     <QtBuildConfig>release</QtBuildConfig>
   </PropertyGroup>
   <Target Name="QtMsBuildNotFound" BeforeTargets="CustomBuild;ClCompile" Condition="!Exists('$(QtMsBuild)\qt.targets') or !Exists('$(QtMsBuild)\qt.props')">
@@ -105,11 +105,13 @@
     <ClCompile Include="graphics_scene.cpp" />
     <ClCompile Include="graphics_view.cpp" />
     <ClCompile Include="node.cpp" />
+    <ClCompile Include="node_search_dialog.cpp" />
     <ClCompile Include="qt_network_tools.cpp" />
     <ClCompile Include="socket.cpp" />
     <ClCompile Include="socket_graphics.cpp" />
     <ClCompile Include="workspace.cpp" />
     <QtRcc Include="workspaces.qrc" />
+    <QtUic Include="node_search_dialog.ui" />
     <QtUic Include="settings_dialog.ui" />
     <QtMoc Include="workspaces.h" />
     <ClCompile Include="maya.cpp" />
@@ -131,6 +133,7 @@
     <QtMoc Include="graphics_view.h" />
     <ClInclude Include="maya.h" />
     <QtMoc Include="node.h" />
+    <QtMoc Include="node_search_dialog.h" />
     <ClInclude Include="qt_network_tools.h" />
     <QtMoc Include="workspace.h" />
   </ItemGroup>

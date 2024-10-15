@@ -1,30 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>node_search_dialog</class>
- <widget class="QWidget" name="node_search_dialog">
-  <property name="windowModality">
-   <enum>Qt::WindowModality::NonModal</enum>
-  </property>
-  <property name="enabled">
-   <bool>true</bool>
-  </property>
+ <class>NodeSearchDialog</class>
+ <widget class="QDialog" name="NodeSearchDialog">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>152</width>
-    <height>252</height>
+    <width>210</width>
+    <height>237</height>
    </rect>
   </property>
-  <property name="contextMenuPolicy">
-   <enum>Qt::ContextMenuPolicy::NoContextMenu</enum>
-  </property>
   <property name="windowTitle">
-   <string>Form</string>
+   <string>Dialog</string>
+  </property>
+  <property name="modal">
+   <bool>false</bool>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <property name="spacing">
-    <number>0</number>
+    <number>2</number>
    </property>
    <property name="leftMargin">
     <number>0</number>
@@ -39,10 +33,14 @@
     <number>0</number>
    </property>
    <item>
-    <widget class="QLineEdit" name="search_le"/>
+    <widget class="QLineEdit" name="search_le">
+     <property name="placeholderText">
+      <string>Search...</string>
+     </property>
+    </widget>
    </item>
    <item>
-    <widget class="QListWidget" name="node_lw"/>
+    <widget class="QListView" name="node_lv"/>
    </item>
   </layout>
  </widget>
