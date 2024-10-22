@@ -1,4 +1,5 @@
 #include "graphics_scene.h"
+#include "node_manager.h"
 #include "node.h"
 #include "edge.h"
 #include "socket.h"
@@ -20,8 +21,10 @@
 
 const int GraphicsScene::size = 16000;
 
-GraphicsScene::GraphicsScene(QObject* parent) : QGraphicsScene(parent)
+GraphicsScene::GraphicsScene(QObject* parent) 
+	: QGraphicsScene(parent)
 {
+	node_manager = new NodeManager(this);
 	setSceneRect(-size, -size, size, size);
 }
 
@@ -92,9 +95,10 @@ void GraphicsScene::drawBackground(QPainter* painter, const QRectF& rect)
 
 void GraphicsScene::add_node()
 {
-	Node* node = new Node();
-	node->setPos(get_viewport_center());
-	addItem(node);
+// 	Node* node = new Node();
+// 	node->set_position(get_viewport_center());
+// 	addItem(node->node_graphics);
+	node_manager->create_node(get_viewport_center());
 	update();
 
 	return;

@@ -1,28 +1,20 @@
 #pragma once
+#include "node_graphics.h"
 
 #include <QGraphicsItem>
 #include <QObject>
 #include <QPainter>
 #include <QColor>
 
-class Node : public QObject, public QGraphicsItem
+class Node : public QObject
 {
-	Q_OBJECT
-
 public:
 	Node();
 	~Node();
 
-	QRectF boundingRect() const override;
-	void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget) override;
+	void set_position(QPointF position);
 
-private:
-	int width;
-	int height;
-	int title_height;
-	int edge_size;
-	QColor background_color;
-
-	QPen pen_default;
-	QPen pen_selected;
+	NodeGraphics* node_graphics;
 };
+
+

@@ -104,11 +104,16 @@
     <ClCompile Include="edge.cpp" />
     <ClCompile Include="graphics_scene.cpp" />
     <ClCompile Include="graphics_view.cpp" />
+    <ClCompile Include="new_scene.cpp" />
     <ClCompile Include="node.cpp" />
+    <ClCompile Include="node_manager.cpp" />
+    <ClCompile Include="node_graphics.cpp" />
+    <ClCompile Include="node_graphics_shared.cpp" />
     <ClCompile Include="node_search_dialog.cpp" />
     <ClCompile Include="qt_network_tools.cpp" />
     <ClCompile Include="socket.cpp" />
     <ClCompile Include="socket_graphics.cpp" />
+    <ClCompile Include="socket_graphics_shared.cpp" />
     <ClCompile Include="workspace.cpp" />
     <QtRcc Include="workspaces.qrc" />
     <QtUic Include="node_search_dialog.ui" />
@@ -126,14 +131,19 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="enums.h" />
+    <ClInclude Include="socket_graphics_shared.h" />
     <QtMoc Include="socket_graphics.h" />
     <QtMoc Include="socket.h" />
     <QtMoc Include="graphics_scene.h" />
     <QtMoc Include="edge.h" />
     <QtMoc Include="graphics_view.h" />
     <ClInclude Include="maya.h" />
-    <QtMoc Include="node.h" />
+    <ClInclude Include="node.h" />
     <QtMoc Include="node_search_dialog.h" />
+    <ClInclude Include="new_scene.h" />
+    <QtMoc Include="node_manager.h" />
+    <ClInclude Include="node_graphics.h" />
+    <ClInclude Include="node_graphics_shared.h" />
     <ClInclude Include="qt_network_tools.h" />
     <QtMoc Include="workspace.h" />
   </ItemGroup>

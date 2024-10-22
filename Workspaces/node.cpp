@@ -10,42 +10,23 @@
 #include <QColor>
 
 
-Node::Node()
+Node::Node() 
+	: node_graphics(new NodeGraphics())
 {
 	setObjectName("Node class");
 
-	width = 180;
-	height = 240;
-	title_height = 24;
-	edge_size = 10;
-	background_color = QColor("#313131");
+	node_graphics->set_node_parent(this);
 
-	pen_default = QPen(QColor("#7F000000"), 1);
-	pen_selected = QPen(QColor("#FFFFA637"), 2);
-
-	this->setFlag(QGraphicsItem::ItemIsMovable);
-	this->setFlag(QGraphicsItem::ItemIsSelectable);
-
-	Socket* input = new Socket(SocketType::INPUT, this);
-	Socket* output = new Socket(SocketType::OUTPUT, this);
+	Socket* input = new Socket(SocketType::INPUT, node_graphics);
+	Socket* output = new Socket(SocketType::OUTPUT, node_graphics);
 }
 
-Node::~Node() {}
-
-QRectF Node::boundingRect() const
+Node::~Node() 
 {
-	return QRectF(0, 0, width, height);
 }
 
-void Node::paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget)
+void Node::set_position(QPointF position)
 {
-	painter->setBrush(background_color);
-	if (this->isSelected())
-	{
-		painter->setPen(pen_selected);
-	} else {
-		painter->setPen(pen_default);
-	}
-	painter->drawRoundedRect(boundingRect(), 20, 20);
+	node_graphics->setPos(position);
 }
 

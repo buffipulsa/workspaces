@@ -163,6 +163,18 @@ void GraphicsView::keyPressEvent(QKeyEvent* event)
 			fitInView(combined_rect, Qt::KeepAspectRatio);
 		}
 	}
+	else if (event->key() == Qt::Key_Delete)
+	{
+		QList<QGraphicsItem*> selected_items = scene()->selectedItems();
+		if (!selected_items.isEmpty())
+		{
+			for (QGraphicsItem* item : selected_items) {
+				NodeGraphics* graphic_node = dynamic_cast<NodeGraphics*>(item);
+				graphics_scene->node_manager->delete_node(graphic_node->get_node_parent());
+			}
+			
+		}
+	}
 	
 	QGraphicsView::keyPressEvent(event);
 

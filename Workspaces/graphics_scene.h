@@ -1,7 +1,8 @@
 #pragma once
-
 #include "node.h"
 #include "socket.h"
+#include "node_manager.h"
+
 #include <QGraphicsScene>
 #include <QBrush>
 #include <QPointF>
@@ -14,6 +15,8 @@ class GraphicsScene : public QGraphicsScene
 public:
 	explicit GraphicsScene(QObject* parent = nullptr);
 	~GraphicsScene();
+
+	NodeManager* node_manager;
 
 private:
 	const static int size;

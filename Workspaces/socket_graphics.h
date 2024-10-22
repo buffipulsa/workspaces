@@ -1,5 +1,8 @@
 #pragma once
+
+#include "socket_graphics_shared.h"
 #include "enums.h"
+
 #include <QGraphicsItem>
 
 
@@ -17,6 +20,7 @@ public:
 	void set_hovered(bool hovered);
 
 private:
+	QSharedPointer<SocketGraphicsShared> shared_graphics;
 	SocketType type;
 	bool is_hovered;
 

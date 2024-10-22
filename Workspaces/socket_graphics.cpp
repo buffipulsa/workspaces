@@ -5,7 +5,7 @@
 
 
 SocketGraphics::SocketGraphics(SocketType type, QGraphicsItem* parent) 
-	: QGraphicsItem(parent), type(type), is_hovered(false)
+	: QGraphicsItem(parent), type(type), is_hovered(false), shared_graphics(SocketGraphicsShared::get_instance())
 {
 	apply_settings();
 }
@@ -23,13 +23,13 @@ QRectF SocketGraphics::boundingRect() const
 void SocketGraphics::paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget)
 {
 	if (type == SocketType::INPUT) {
-		painter->setBrush(QColor("#ff9900"));
+		painter->setBrush(shared_graphics->input_background_color);
 	}
 	else {
-		painter->setBrush(QColor("#0066ff"));
+		painter->setBrush(shared_graphics->output_background_color);
 	}
 	if (is_hovered) {
-		painter->setPen(QPen(QColor("#ff0000"), 2));
+		painter->setPen(shared_graphics->hover_default_pen);
 	}
 	else
 	{
