@@ -102,6 +102,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="edge.cpp" />
+    <ClCompile Include="edge_graphics.cpp" />
     <ClCompile Include="graphics_scene.cpp" />
     <ClCompile Include="graphics_view.cpp" />
     <ClCompile Include="new_scene.cpp" />
@@ -130,6 +131,7 @@
     <QtMoc Include="settings_dialog.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="edge_graphics.h" />
     <ClInclude Include="enums.h" />
     <ClInclude Include="socket_graphics_shared.h" />
     <QtMoc Include="socket_graphics.h" />

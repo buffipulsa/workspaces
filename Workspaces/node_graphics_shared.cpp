@@ -40,8 +40,3 @@ NodeGraphicsShared::~NodeGraphicsShared()
 {
 	qDebug() << "NodeGraphicsShared destroyed";
 }
-
-void NodeGraphicsShared::paint(QPainter* painter)
-{
-	painter->setBrush(background_color);
-}

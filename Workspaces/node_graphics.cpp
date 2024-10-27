@@ -19,7 +19,7 @@ QRectF NodeGraphics::boundingRect() const
 
 void NodeGraphics::paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget)
 {
-	shared_graphics->paint(painter);
+	painter->setBrush(shared_graphics->background_color);
 	if (this->isSelected())
 	{
 		painter->setPen(shared_graphics->pen_selected);
@@ -44,4 +44,5 @@ void NodeGraphics::apply_settings()
 {
 	setFlag(QGraphicsItem::ItemIsMovable);
 	setFlag(QGraphicsItem::ItemIsSelectable);
+	qDebug() << this << "NodeGraphics settings applied";
 }

@@ -1,5 +1,6 @@
 #pragma once
 #include "node.h"
+#include "edge.h"
 
 #include <QObject>
 #include <QList>
@@ -14,6 +15,7 @@ public:
 	~NodeManager();
 
 	Node* create_node(const QPointF& position);
+	Edge* create_edge();
 	void delete_node(Node* node);
 	void delete_all_nodes();
 

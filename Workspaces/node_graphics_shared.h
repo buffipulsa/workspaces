@@ -17,20 +17,17 @@ public:
 	
 	static QSharedPointer<NodeGraphicsShared> get_instance();
 
-	void paint(QPainter* painter);
-
 	int width;
 	int height;
 	int title_height;
 	int edge_size;
 	QPen pen_default;
 	QPen pen_selected;
+	QColor background_color;
 
 private:
 
 	static QWeakPointer<NodeGraphicsShared> global_shared_node_graphics;
 	static QMutex instance_mutex;
-
-	QColor background_color;
 };
 

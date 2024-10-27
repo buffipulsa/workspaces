@@ -1,5 +1,7 @@
+
 #include "node_manager.h"
 #include "graphics_scene.h"
+#include "enums.h"
 
 #include <QMutexLocker>
 
@@ -27,6 +29,15 @@ Node* NodeManager::create_node(const QPointF& position)
 	nodes.append(node);
 
 	return node;
+}
+
+Edge* NodeManager::create_edge()
+{
+	QMutexLocker locker(&mutex);
+
+	Edge* edge = new Edge(EdgeType::DIRECT);
+
+	return edge;
 }
 
 void NodeManager::delete_node(Node* node)
